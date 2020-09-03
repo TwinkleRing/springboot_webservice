@@ -1,10 +1,13 @@
 package com.twinklering.webservice.springboot.web;
 import com.twinklering.webservice.springboot.service.PostsService;
+import com.twinklering.webservice.springboot.web.dto.PostsListResponseDto;
 import com.twinklering.webservice.springboot.web.dto.PostsResponseDto;
 import com.twinklering.webservice.springboot.web.dto.PostsSaveRequestDto;
 import com.twinklering.webservice.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -28,6 +31,13 @@ public class PostsApiController {
         return postsService.findById(id);
     }
 
-
-
+    @GetMapping("/api/v1/posts/list")
+    public List<PostsListResponseDto> findAll() {
+        return postsService.findAllDesc();
+    }
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
+    }
 }
